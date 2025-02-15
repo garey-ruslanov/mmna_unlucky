@@ -69,6 +69,7 @@ def polynom_cholesky(N : int, J : list, w : callable):
 
 
     draw_poly(J, N, [lambda x, i=i: poly_c(coeffs[i,:], x) for i in range(N+1)])
+    return coeffs
 
 
 def polynom_recurrent(N : int, J : list, w : callable):
@@ -91,6 +92,7 @@ def polynom_recurrent(N : int, J : list, w : callable):
 
 
     draw_poly(J, N, [lambda x, i=i: poly_c(coeffs[i,:], x) for i in range(N+1)])
+    return coeffs
 
 
 def polynom_roots(N : int, J : list, w : callable):
@@ -118,6 +120,7 @@ def polynom_roots(N : int, J : list, w : callable):
 
 
     draw_poly(J, N, [lambda x, i=i: lead[i]*poly_r(roots[i], x) for i in range(N+1)])
+    return roots, lead
 
 
 def draw(f : callable, J : list):
@@ -126,14 +129,16 @@ def draw(f : callable, J : list):
     plt.plot(np.linspace(J[0], J[1], 1001), np.vectorize(f)(np.linspace(J[0], J[1], 1001)))
     plt.show()
 
-N = 6
-J = [-1, 1]
-#w = lambda x: 1.0
-w = lambda x: 1/(1 - x**2)**0.5
-#w = lambda x: (1 - x**2)**0.5
-#J = [-np.infty, np.infty]
-#w = lambda x: np.exp(-x**2)
 
-polynom_cholesky(N, J, w)
-polynom_recurrent(N, J, w)
-polynom_roots(N, J, w)
+if __name__ == '__main__':
+    N = 3
+    J = [-1, 1]
+    #w = lambda x: 1.0
+    w = lambda x: 1/(1 - x**2)**0.5
+    #w = lambda x: (1 - x**2)**0.5
+    #J = [-np.infty, np.infty]
+    #w = lambda x: np.exp(-x**2)
+
+    polynom_cholesky(N, J, w)
+    polynom_recurrent(N, J, w)
+    polynom_roots(N, J, w)
