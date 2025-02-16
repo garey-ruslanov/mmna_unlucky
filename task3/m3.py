@@ -36,7 +36,8 @@ def interpolate_vandermond(X : list, f : callable, J : list):
         vandermond[:,j] = np.asarray([x**j for x in X])
 
     coeffs = np.linalg.solve(vandermond, np.asarray(fx))
-    draw_interpol(X, lambda x: poly_c(coeffs, x), f, J)
+    #draw_interpol(X, lambda x: poly_c(coeffs, x), f, J)
+    return coeffs
 
 
 def interpolate_lagrange(X : list, f : callable, J : list):
