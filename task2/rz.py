@@ -7,9 +7,6 @@ import scipy.linalg as scilin
 
 from task3.m3 import interpolate_vandermond, draw_interpol, poly_c
 
-def F(x):
-    return np.sin(x * 2) * 2
-
 
 def algorithm(N, J, F : callable):
     x = np.linspace(J[0], J[1], N + 2)
@@ -77,11 +74,33 @@ def algorithm(N, J, F : callable):
         f_prev = p_temp(xi)
         iterations += 1
     print(iterations)
-    return x
+    return x, poly[:-1]
+
+
+def f1(x):
+    poly = [0.0, -3.0, 1.0, 2.0, 0.33, 0.33, 0.0, 0.125, 0.25]
+    return poly_c(poly, x)
+
+
+def f2(x):
+    return (x**2 + x + 1) / (x**3 + 4)
+
+
+N = 4
+J = [-1.0, 1.0]
+X, poly = algorithm(N, J, f1)
+print(poly)
+draw_interpol(X, lambda x, poly=poly: poly_c(poly, x), f1, J)
 
 N = 3
 J = [-1.0, 1.0]
-f = F
-X = algorithm(N, J, f)
-interp = interpolate_vandermond(X, f, J)
-draw_interpol(X, lambda x: poly_c(interp, x), f, J)
+X, poly = algorithm(N, J, f2)
+print(poly)
+draw_interpol(X, lambda x, poly=poly: poly_c(poly, x), f2, J)
+
+N = 6
+J = [-1.0, 1.0]
+X, poly = algorithm(N, J, f2)
+print(poly)
+draw_interpol(X, lambda x, poly=poly: poly_c(poly, x), f2, J)
+
